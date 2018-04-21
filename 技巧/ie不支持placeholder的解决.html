@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>regexp</title>
+</head>
+<body>
+    
+</body>
+<script>
+//用来兼容ie低版本
+//可以在main函数中进行扩展
+var PlaceHolder = {
+    _support: (function() {
+        return 'placeholder' in document.createElement('input');
+    })(),
+
+    //提示文字的样式，需要在页面中其他位置定义
+    className: 'placeholder',
+
+    main: function() {
+        if (!PlaceHolder._support) {
+            //未对textarea处理，需要的自己加上
+            var inputs = document.getElementsByTagName('input');
+            var textareas=document.getElementsByTagName('textarea');
+            PlaceHolder.create(inputs);
+            PlaceHolder.create(textareas);
+        }
+    },
+    addEvent:function (obj,sEvent,fn){
+		if(obj.addEventListener){
+			obj.addEventListener(sEvent.substring(2),fn,false);
+		}else{
+			obj.attachEvent(sEvent,fn);
+		}
+	},
+    create: function(inputs) {
+    	var addEvent=this.addEvent;
+        var input;
+        if (!inputs.length) {
+            inputs = [inputs];
+        }
+        for (var i = 0, length = inputs.length; i <length; i++) {
+            input = inputs[i];
+            if (!PlaceHolder._support && input.attributes && input.attributes.placeholder) {
+                PlaceHolder._setValue(input);
+                (function(self){
+ 					addEvent(input,'onfocus', function() {
+                	console.log(self.attributes.placeholder.nodeValue)
+                    if (self.value === self.attributes.placeholder.nodeValue) {
+                        self.value = '';
+                        self.className = '';
+                    }
+                	});
+                })(input);
+
+                (function(self){
+                	addEvent(input,'onblur', function(e) {
+                    if (self.value == '') {
+                        PlaceHolder._setValue(self);
+                    }
+                });
+                })(input)
+               
+                
+            }
+        }
+    },
+
+    _setValue: function(input) {
+        input.value = input.attributes.placeholder.nodeValue;
+        input.className = PlaceHolder.className;
+    }
+};
+
+//页面初始化时对所有input做初始化
+PlaceHolder.main();
+//或者单独设置某个元素
+//PlaceHolder.create(document.getElementById('t1'));
+</script>
+</html>

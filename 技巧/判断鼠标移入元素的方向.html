@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+            .position{
+                margin: 10px 20px;
+                position: relative;
+                background: black;
+                height: 20px;
+                left: 1rem;
+            }
+    </style>
+</head>
+<body>
+    <div class="position"></div>
+</body>
+<script>
+    var ele = document.querySelector('.position');
+
+    function getPosition(ele){
+
+        var x = ele.offsetLeft,y = ele.offsetTop;
+
+        while(ele.offsetParent){
+            x += ele.offsetLeft;
+            y += ele.offsetTop;
+            ele = ele.parentNode;
+        }
+        return {
+            x:x,
+            y:y
+        }
+    }
+    var pos = getPosition(ele);
+
+    console.log(pos)
+</script>
+</html>

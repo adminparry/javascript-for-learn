@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>regexp</title>
+</head>
+<body>
+    
+</body>
+<script>
+//数字用分割符号隔开
+//返回字符串
+function thounds(num){   
+
+		if(typeof(num) == "string" && arguments.length==1){
+
+			var binery=num.split(".");
+
+			var re=/(-?\d+)(\d{3})/    
+			while(re.test(binery[0])){    
+				binery[0]=binery[0].replace(re,"$1,$2")    
+			}    
+			    
+			return  binery.join('.')  
+		}else{
+			return "invaild"
+		} 
+	} 
+</script>
+</html>
