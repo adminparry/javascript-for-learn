@@ -1,7 +1,0 @@
-{
-  "dependencies": {
-    "gulp": "^3.9.1",
-    "gulp-less": "^4.0.0",
-    "gulp-px2rem": "^1.0.12"
-  }
-}

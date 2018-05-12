@@ -1,0 +1,18 @@
+<script>
+	// 构造方法的写发为声明一个普通函数
+	// 通常的约定为首字母大写 当然在JavaScript脚本语言中这个不是强硬的
+	// 其内部会构造出一个空的对象并返回
+	// this在JavaScript中通常为函数调用的所属者 在构造函数中this指向空对象
+	// 在构造函数中我们也可以手动使用return 返回 其作用会覆盖自动创建的Object
+	
+	function Animal(){
+		this.name = 'tomcat';
+		this.parent = 'apache';
+		return {
+			aaa:555
+		}
+	}
+	var animalInstane = new Animal();
+
+	console.log(animalInstane)
+</script>
