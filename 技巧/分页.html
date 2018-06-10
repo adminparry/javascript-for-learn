@@ -1,0 +1,172 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Untitled Document</title>
+<style>
+	*{margin: 0;padding: 0;list-style: none}
+	.pager li{
+		float: left;
+		padding: 20px;
+		background: #aaa;
+	}
+	.pager li:hover{
+		color: blue;cursor: pointer;
+	}
+	.pager .cur{
+		background: green;color:white;
+	}
+</style>
+</head>
+
+<body>
+	<ul id="ul" class="pager">
+		<!-- <li>1</li>
+		<li><<</li>
+		<li>1</li>
+		<li>2</li>
+		<li>3</li>
+		<li>4</li>
+		<li>5</li>
+		<li>>></li>
+		<li>44</li> -->
+	</ul>
+</body>
+<script>
+	function Pager(total,ele,current,fn){
+		this.current = current;
+		this.total = total;
+		this.showPrev = false;
+		this.showNext = false;
+		this.list = [];
+		this.parent = ele;
+		this.init();
+		this.click();
+		this.callback = fn;
+	}
+	Pager.prototype.init = function(){
+
+		this.showPrev = false;
+		this.showNext = false;
+
+		const pagerCount = 7;
+		function prev(dnf){
+			 var li = document.createElement('li');
+				li.textContent = '<<';
+				dnf.appendChild(li);
+		}
+		function next(dnf){
+			 var li = document.createElement('li');
+				li.textContent = '>>';
+				dnf.appendChild(li);
+		}
+		var current = this.current;
+
+		function cur(li,index){
+			
+			if(index == current){
+				li.className = "cur"
+			}
+		}
+		if(this.total > pagerCount){
+			if(this.current > pagerCount - 3){
+				this.showPrev = true;
+			}
+			if(this.current < this.total - 3){
+				this.showNext = true;
+			}
+		}
+
+		var arr = [];
+		var dnf = document.createDocumentFragment();
+
+		if(this.total > 0){
+			var li = document.createElement('li');
+				li.textContent = 1;cur(li,1)
+			dnf.appendChild(li);
+		}
+
+		if(this.showNext && this.showPrev){
+		  const offset = (pagerCount>>>1) - 1;
+		  prev(dnf);
+		  
+          for (let i = this.current - offset ; i <= this.current + offset; i++) {
+            var li = document.createElement('li');
+				li.textContent = i;cur(li,i);
+				dnf.appendChild(li);
+          }
+          next(dnf)
+		}else if(this.showPrev && !this.showNext){
+		  const startPage = this.total - (pagerCount - 2);
+		  prev(dnf)
+          for (let i = startPage; i < this.total; i++) {
+            var li = document.createElement('li');
+				li.textContent = i;cur(li,i);
+				dnf.appendChild(li);
+          }
+		}else if(this.showNext && !this.showPrev){
+			for (var i = 2; i < pagerCount; i++) {
+				var li = document.createElement('li');
+				li.textContent = i;cur(li,i);
+				dnf.appendChild(li);
+			};
+			next(dnf)
+		}else{
+
+			for (var i = 2; i < this.total; i++) {
+				var li = document.createElement('li');
+				li.textContent = i;cur(li,i);
+				dnf.appendChild(li);
+			};
+		}
+
+		if(this.total > 1){
+			var li = document.createElement('li');
+				li.textContent = this.total;cur(li,this.total)
+			dnf.appendChild(li);
+		}
+		this.parent.appendChild(dnf);
+		
+	}
+Pager.prototype.click = function(){
+	var self = this;
+	this.parent.onclick = function(ev){
+		var oEvent = ev || event;
+		var target = oEvent.target;
+		if (target.tagName === 'UL') {
+          return;
+        }
+        var newPageNum = target.textContent;
+        if(newPageNum == '<<'){
+        	self.current -= 5;
+        	this.innerHTML = null;
+			self.init();
+
+        }else if(newPageNum == '>>'){
+        	self.current += 5;
+        	this.innerHTML = null;
+
+	        self.init();
+        }else{
+        	if(self.current != newPageNum){
+	    		self.current = Number(newPageNum);
+	    		this.innerHTML = null;
+
+	        	self.init();
+	        	self.callback.call(this,self)
+	    	}
+        }
+
+	}
+}
+
+
+
+
+new Pager(55,document.getElementById('ul'),53,function(){
+	console.log(this,arguments)
+});
+
+
+</script>
+</html>

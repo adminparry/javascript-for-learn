@@ -1,0 +1,61 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Untitled Document</title>
+<style>
+	span{
+		color: green;
+	}
+</style>
+</head>
+
+<body>
+	<h1>从数组<span id="array"></span>验证<span id="wanna"></span>是否在其中</h1>
+	<h1>结果<span id="result"></span></h1>
+	<h2>复杂度<span>O(log2n)</span></h2>
+</body>
+<script>
+	function binaryFind(items,value,startIndex,stopIndex){
+
+	var middleIndex=(startIndex+stopIndex)>>>1;
+
+	while(items[middleIndex]!=value && startIndex<stopIndex){
+
+		if(items[middleIndex]>value){
+			stopIndex=middleIndex-1;
+		}else{
+			startIndex=middleIndex+1;
+		}
+		middleIndex=(startIndex+stopIndex)>>>1;
+	}
+
+	return items[middleIndex]!=value ? false:middleIndex;
+
+	}
+
+
+	var arr=[11,22,33,44,55,66,77,88,99];
+
+	var wanna = 66;
+
+	document.querySelector('#array').innerHTML = arr;
+	document.querySelector('#wanna').innerHTML = wanna;
+	var result = document.querySelector('#result');
+	var ret = binaryFind(arr,wanna,0,arr.length-1);
+
+
+	function isResult(){
+		if(ret !== false){
+			result.innerHTML = '在索引' + ret;
+		}else{
+			result.innerHTML = '不在其中'
+		}
+	}
+	
+	isResult();
+
+	
+
+</script>
+</html>

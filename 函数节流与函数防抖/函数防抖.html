@@ -1,0 +1,37 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Untitled Document</title>
+</head>
+
+<body>
+	<input type="text" id="email">
+</body>
+<script>
+	const filter  = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;  
+	
+	function checkEmail(ms,fn){  
+	    let timer=null;  
+	    
+        clearTimeout(timer);  
+        timer=setTimeout(function(){  
+           fn && fn();
+        },ms);  
+	    
+	}  
+
+	document.querySelector('#email').onkeyup = function(ev){
+		var target = ev.target;
+		
+		checkEmail(800,function(){
+			if(filter.test(target.value)){
+				target.nextSibling.nodeValue = '';
+			}else{
+				target.nextSibling.nodeValue = '请输入正确的邮箱地址';
+			}
+			
+		});
+	}
+</script>
+</html>

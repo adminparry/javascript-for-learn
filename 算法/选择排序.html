@@ -1,0 +1,34 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>heapSort</title>
+<style>
+	span{
+		color: green;
+	}
+</style>
+</head>
+
+<body>
+	<h1>从第一个元素开始依次对比后面每个元素如果比自己大就跟自己交换</h1>
+</body>
+<script>
+function selectionSort(arr,length,minIndex,temp){
+    for (var i = 0; i < arr.length - 1; i++) {
+        minIndex = i;
+        for (var j = i + 1; j < arr.length; j++) {
+            if(arr[j] < arr[minIndex]){
+                minIndex = j;
+            }
+        };
+        temp = arr[i];
+        arr[i] = arr[minIndex];
+        arr[minIndex] = temp;
+    };
+    return arr;
+}
+
+console.log(selectionSort([2,34,5,56,3,23,5,7,6,34,3]))
+</script>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>THIS</title>
+</head>
+<body>
+	<h1>this 的理解 存在于函数中 影响其值的只有一个 就是上下文</h1>
+	<h3>打开控制台进行查看</h3>
+</body>
+<script>
+	function uuid (){
+		return Math.random().toString(16);
+	}
+	function InstanceConstructor(){
+		this.uuid = uuid();
+		this.name = 'InstanceConstructor';
+		this.length = 1;
+		this.scope = window;
+	}
+	var obj = new InstanceConstructor();
+	// 构造函数中的this
+	console.log('构造函数中的this:',obj.name);
+
+	var len = 66;
+
+	var json = {
+		len:777,
+		info:function(){
+			console.log('上下文this',this.len)
+		}
+	}
+	var w_context = json.info;
+	
+	w_context();
+
+	json.info();
+
+	(json.info = json.info)();
+
+	
+
+</script>
+</html>

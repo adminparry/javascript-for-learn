@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>无缝滚动</title>
+    <style>
+      
+      .banner{
+        overflow: hidden;
+        width: 100%;
+       
+      }
+      li{
+        float: left;width: 14%;
+        background: red;
+      }
+      .photo{
+        width: 700%;
+      }
+    </style>
+</head>
+<body>
+    <div class="banner">
+      <ul class="photo" id="photo"> 
+        <li><img src="imgs/5.jpg" alt=""></li> 
+        <li><img src="imgs/1.jpg" alt=""></li> 
+        <li><img src="imgs/2.jpg" alt=""></li> 
+        <li><img src="imgs/3.jpg" alt=""></li> 
+        <li><img src="imgs/4.jpg" alt=""></li> 
+        <li><img src="imgs/5.jpg" alt=""></li> 
+        <li><img src="imgs/1.jpg" alt=""></li> 
+        </ul> 
+        <a href="javascript:;" id="prev" class="arrow">&lt;</a> 
+        <a href="javascript:;" id="next" class="arrow">&gt;</a> 
+    </div>
+</body>
+<script>
+var bannerWidth = document.querySelector('.banner').offsetWidth
+Array.prototype.slice.call(document.querySelectorAll('li')).forEach((item,index)=>{
+
+  var arr = [Math.random()*100,Math.random()*100,Math.random()*100]
+  item.style.background = `rgba(${arr.join(',')})`;
+  item.style.width = bannerWidth + 'px';
+})
+
+var photo = document.querySelector('#photo'), 
+nextItem = document.querySelector('#next') 
+index = 1 
+var translate = function (dom, type, time) { 
+dom.style.transform = type 
+dom.style.transitionDuration = time + 's' 
+
+} 
+var animated = function (offset) { 
+go = 'translate(' + offset*index + 'px, 0)' 
+if(index == 6) { 
+index = 1 
+} 
+console.log(go) 
+translate(photo, go, 0.5) 
+} 
+var next = function () { 
+index++ 
+animated(-bannerWidth) 
+} 
+nextItem.onclick = next; 
+</script>
+</html>

@@ -5,7 +5,8 @@
     <title>regexp</title>
 </head>
 <body>
-    
+    <h1 id="num">34655645.3524</h1>
+    <h1 id="ret"></h1>
 </body>
 <script>
 //数字用分割符号隔开
@@ -26,5 +27,12 @@ function thounds(num){
 			return "invaild"
 		} 
 	} 
+
+
+var input = document.querySelector('#num');
+var output = document.querySelector('#ret');
+
+output.textContent = thounds(input.textContent);
+
 </script>
 </html>
