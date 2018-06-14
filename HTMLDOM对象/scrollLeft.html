@@ -1,0 +1,80 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Untitled Document</title>
+    <style>
+    * {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+
+    ul {
+        overflow: hidden;
+    }
+
+    li {
+        float: left;
+        padding: 10px 6px;
+    }
+    .scroll_end,.scroll_begin{
+    	display: inline-block;
+    }
+    #scroll_div{
+    	width: 608px;overflow: hidden;white-space: nowrap;
+    	margin: auto;
+    }
+    span{
+    	border: 1px solid #ccc;
+    	border-radius: 50px;
+    	color: green;
+    	padding:6px;
+    }
+    </style>
+</head>
+
+<body>
+    <div id="scroll_div">
+        <div class="scroll_begin" id="scroll_begin"><span>医疗服务</span><span>网络游戏</span><span>机器人</span><span>医院诊所</span><span>母婴概念</span><span>信息技术服务</span><span>制药</span><span>九鼎集团</span></div>
+        <div class="scroll_end" id="scroll_end" style="margin-left:3rem;"></div>
+    </div>
+</body>
+<script>
+var aaa;
+function ScrollImgLeft() {
+    var speed = 60;
+    var scroll_begin = document.getElementById("scroll_begin");
+    var scroll_end = document.getElementById("scroll_end");
+    var scroll_div = document.getElementById("scroll_div");
+    scroll_begin.innerHTML+=scroll_begin.innerHTML;
+    // scroll_end.innerHTML = scroll_begin.innerHTML;
+    // scroll_div.scrollLeft = 78;
+    // scroll_div.scrollLeft = scroll_begin.offsetWidth/2;
+   	
+
+    function Marquee() {
+       
+        var harf = scroll_begin.offsetWidth/2;
+        var left = scroll_div.scrollLeft;
+
+        scroll_div.scrollLeft = (++left%harf + scroll_begin.offsetWidth/2)%harf;
+        // aaa = window.requestAnimationFrame(Marquee);
+    }
+        // aaa = window.requestAnimationFrame(Marquee);
+    var MyMar = setInterval(Marquee, speed);
+
+    scroll_div.onmouseover = function() { 
+    	clearInterval(MyMar); 
+    	// window.cancelAnimationFrame(aaa);
+    }
+    scroll_div.onmouseout = function() {
+        MyMar = setInterval(Marquee, speed);
+        // aaa = window.requestAnimationFrame(Marquee);
+    }
+};
+ScrollImgLeft();
+</script>
+
+</html>
