@@ -6,7 +6,9 @@ new Array(size);
 new Array(element0, element1, ..., elementn);
 ```
 
-第一表头 | 第二表头
+
+属性 | 描述
 ------------ | -------------
-第一单元格内容 | 第二单元格内容
-第一列内容 | 第二列内容
+constructor | 返回对创建此对象的数组函数的引用。
+length | 设置或返回数组中元素的数目。
+prototype | 使您有能力向对象添加属性和方法。
