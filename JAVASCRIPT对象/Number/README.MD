@@ -9,7 +9,7 @@ Boolean(value);		//转换函数
 ------------ | -------------
 constructor |	返回对创建此对象的 Number 函数的引用。
 MAX_VALUE |	可表示的最大的数。
-MIN_VALUE	可表示的最小的数。
+MIN_VALUE	|可表示的最小的数。
 NaN |	非数字值。
 NEGATIVE_INFINITY |	负无穷大，溢出时返回该值。
 POSITIVE_INFINITY |	正无穷大，溢出时返回该值。
