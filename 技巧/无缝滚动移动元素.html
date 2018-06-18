@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>无缝滚动</title>
+    <style>
+      *{margin: 0;padding: 0;list-style: none;}
+      .banner{
+        margin: auto;
+        overflow: hidden;
+        
+         width: 100px;
+      }
+      li{
+        float: left;width: 100px;
+        background: red;
+        height: 200px;
+        color: white;
+        text-align: center;line-height: 200px;
+      }
+      .photo{
+        width: 900px;
+        overflow: auto;
+      }
+    </style>
+</head>
+<body>
+    <div class="banner">
+      <ul class="photo" id="photo"> 
+       
+        <li><img src="imgs/5.jpg" alt="">1</li> 
+        <li><img src="imgs/1.jpg" alt="">2</li> 
+        <li><img src="imgs/2.jpg" alt="">3</li> 
+        <li><img src="imgs/3.jpg" alt="">4</li> 
+        <li><img src="imgs/4.jpg" alt="">5</li> 
+        <li><img src="imgs/5.jpg" alt="">6</li> 
+        <li><img src="imgs/1.jpg" alt="">7</li> 
+      
+        </ul> 
+        <a href="javascript:;" id="prev" class="arrow">&lt;</a> 
+        <a href="javascript:;" id="next" class="arrow">&gt;</a> 
+    </div>
+</body>
+<script>
+var photo = document.querySelector('#photo'), 
+nextItem = document.querySelector('#next') ,
+prevItem = document.querySelector('#prev') 
+index = 0 ;
+var bannerWidth = document.querySelector('.banner').offsetWidth
+
+
+
+// 补间
+void function(){
+  var first = photo.firstElementChild.cloneNode(true);
+  var last = photo.lastElementChild.cloneNode(true);
+  photo.appendChild(first);
+  photo.insertBefore(last,photo.firstElementChild);
+
+  translate(photo, 'translate(' + (-bannerWidth) + 'px, 0)' , 0);
+}();
+
+
+Array.prototype.slice.call(document.querySelectorAll('li')).forEach((item,index)=>{
+
+  var arr = [Math.random()*100,Math.random()*100,Math.random()*100]
+  item.style.background = `rgba(${arr.join(',')})`;
+  // item.style.width = bannerWidth + 'px';
+})
+
+
+
+
+
+function translate(dom, type, time) { 
+dom.style.transform = type 
+dom.style.transitionDuration = time + 's' 
+
+} 
+function diration(dir){
+  photo.dir = dir;
+}
+diration('ltr');
+var animated = function (offset) { 
+  
+  index = (index%photo.children.length +  photo.children.length)%photo.children.length;
+go = 'translate(' + offset*index + 'px, 0)' 
+
+
+translate(photo, go, 0.5) 
+} 
+var next = function () { 
+index++ ;
+if(index == photo.children.length){
+  photo.appendChild(photo.children[0])
+  translate(photo, 'translate(' + (-bannerWidth*(photo.children.length-2)) + 'px, 0)' , 0);
+  index-- ;
+}
+
+
+
+// animated(-bannerWidth) ;
+setTimeout(function(){
+ animated(-bannerWidth) ;
+},100)
+
+} 
+var prev = function () { 
+index-- ;
+if(index == -1){
+  photo.appendChild(photo.children[0])
+  translate(photo, 'translate(' + (-bannerWidth*(photo.children.length-1)) + 'px, 0)' , 0);
+  index-- 
+}
+setTimeout(function(){
+ animated(-bannerWidth) ;
+},100)
+} 
+nextItem.onclick = next; 
+prevItem.onclick = prev; 
+</script>
+</html>
