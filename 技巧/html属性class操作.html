@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>regexp</title>
+</head>
+<body>
+    
+</body>
+<script>
+//经典的加个或者去掉HTML元素中的class
+var Class={
+  has:function(obj,str){
+   var reg=new RegExp('\\b'+str+'\\b');
+   return reg.test(obj.className); 
+  },
+  add:function(obj,str){
+  	if(!this.has(obj,str)){
+  		obj.className+=' '+str;
+  	}
+  },
+  remove:function(obj,str){
+  	var reg=new RegExp('\\b'+str+'\\b');
+  	if(this.has(obj,str)){
+  		obj.className=obj.className.replace(reg,'').replace(/^\s+|\s+$/,'').replace(/\s+/g,' ');
+  	}
+  }
+}
+</script>
+</html>

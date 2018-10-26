@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>dbclick</title>
+	<style>
+		.event{
+			width:200px;height:200px;background:red;
+			text-align: center;
+			font-size: 32px;
+			line-height: 200px;
+			user-select:none;
+		}
+	</style>
+</head>
+<body>
+	
+	<input type="text"  id="blur" class="event" value="blur">
+</body>
+<script>
+	document.getElementById('blur').onblur = function(){
+		alert(this.value)
+	}
+</script>
+</html>

@@ -1,0 +1,29 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Untitled Document</title>
+<style>
+	#tunnel{
+		width: 200px;height: 200px;background: red;
+	}
+</style>
+</head>
+
+<body>
+	<div id="tunnel"></div>
+</body>
+<script>
+	document.getElementById("tunnel").animate([
+	  // keyframes
+	  { transform: 'translateY(0px)' }, 
+	  { transform: 'translateY(300px)' }
+	], { 
+	  // timing options
+	  duration: 600,
+	  easing:'cubic-bezier(.215,.61,.355,1.6)',
+	  fill:'forwards',
+	  iterations: 1
+	});
+</script>
+</html>

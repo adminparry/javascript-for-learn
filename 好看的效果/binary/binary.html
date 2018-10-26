@@ -1,0 +1,82 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Untitled Document</title>
+</head>
+
+<body>
+	<canvas></canvas>
+</body>
+<script>
+(function () {
+    /**
+     * Created by Administrator on 2016/12/16.
+     */
+    // function $(id) {
+    //     return document.getElementById("topBanner");
+    // }
+    //画布 的大小设置
+    /*  var mywindow=window.screen;*/
+    
+    
+    var canvas = document.getElementsByTagName('canvas')[0];
+    canvas.width = window.innerWidth;
+    canvas.height = document.documentElement.clientHeight;
+
+    //要输出的信息
+    var str = "0123456789";
+    str = str.split("");
+    var fontSize = 18;//输出字体的大小
+
+    //每列显示多少个信息
+    var cols = canvas.width / fontSize;
+    //数组，统计下落的位置
+    var drops = [];
+    for (var i = 0; i < cols; i++) {
+        drops[i] = 1;
+    }
+
+    var ctx = canvas.getContext("2d");
+    var now = Date.now();
+
+    function draw(stamp) {
+        /**
+         * 获取页面的 大小 包括宽度和高度
+         * 用cols获取能够宽度加载列数
+         * drops加载每一列的位置
+         * drops[2]=10 2为第二排的 top为10
+         */
+         var then = Date.now();
+        // var img = new Image();
+        // img.src = "images/indexTop-banner.jpg";
+        // var pattern = ctx.createPattern(img,"no-repeat");
+        // ctx.fillStyle = pattern,0.05;
+        // ctx.fillStyle = "rgba(10,23,91,0.01)";
+        ctx.fillStyle = "rgba(10,23,91,0.2)";
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        
+        ctx.fillStyle = "#0c4ba6";
+        ctx.font = fontSize + "px arial";
+        for (var i = 0; i < cols; i++) {
+            var text = str[Math.floor(Math.random() * (str.length))];
+            // console.info("x-"+i*fontSize);
+            // console.info("y-"+drops[i]*fontSize);
+            ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+            if (drops[i] * fontSize > canvas.height || Math.random() > 0.95)
+                drops[i] = 0;//把位置恢复到最上面
+            //控制下落的位置
+            drops[i]++;
+        }
+        setTimeout(()=>{
+        	window.requestAnimationFrame(draw);
+        },60)
+        	
+        
+        // window.requestAnimationFrame(draw);
+    }
+   	window.requestAnimationFrame(draw);
+})()
+</script>
+</html>

@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+
+<html>
+
+         <head>
+
+                   <meta charset="utf-8" />
+
+                   <title></title>
+
+                   <style>
+
+                            body{
+
+                                     overflow: hidden;
+
+                                     margin: 0;
+
+                                     padding: 0;
+
+                            }
+
+                            #book{
+
+                                     position: absolute;
+
+                                     left: 50%;
+
+                                     top: 50%;
+
+                                     margin-left: -325px;
+
+                                     margin-top: -300px;
+
+                                     height: 600px;
+
+                                     width: 750px;
+
+                                     transform-style: preserve-3d;
+
+                                     transform:perspective(1000px) rotateX(60deg) rotateY(0deg);
+
+                                     transition: 1s;
+
+                            }
+
+                            #book:hover{
+
+                                     transform:perspective(10000px) rotateX(0deg) rotateY(0deg);
+
+                            }
+
+                            #book div{
+
+                                     height: 600px;
+
+                                     width: 750px;
+
+                                     text-align: center;
+
+                                     line-height: 600px;
+
+                                     position: absolute;
+
+                                     left: 0;
+
+                                     top: 0;
+
+                                     transform-origin: left;
+
+                                     transition: 1s;
+
+                                    
+
+                            }
+
+                            #book div:nth-of-type(odd){
+
+                                     background: orange;       
+
+                            }
+
+                            #book div:nth-of-type(even){
+
+                                     background: yellow;
+
+                            }
+
+                           
+
+                            #book:after{
+
+                                     content: "";
+
+                                     position: absolute;
+
+                                     width: 600px;
+
+                                     height: 5px;
+
+                                     background: rgba(0,0,0,0.8);
+
+                                     left:75px;
+
+                                     z-index: -2;
+
+                                     bottom: -10px;
+
+                                     border-radius: 70%;
+
+                                     box-shadow: 0px 0px 25px 15px rgba(0,0,0,0.8);
+
+                                    
+
+                            }
+
+                   </style>
+
+                   <script>
+
+                            window.onload=function(){
+
+                                     var book=document.getElementById("book");
+
+                                     var pages=book.getElementsByTagName("div");
+
+                                     var pageNumber=4,rota=-180;
+
+                                     book.onclick=function(){
+
+                                               book.style.left="65%";
+
+                                               pages[pageNumber].style.transform="rotateY("+rota+"deg)";
+
+                                               pageNumber--;
+
+                                               rota+=10;
+
+                                               if(pageNumber<0){
+
+                                                        for(var i=0;i<pages.length;i++){
+
+                                                                 pages[i].style.transform="rotateY(0deg)";
+
+                                                        }
+
+                                                        book.style.left="50%";
+
+                                                        pageNumber=4;
+
+                                                        rota=-180;
+
+                                               }
+
+                                     }
+
+                                    
+
+                            }
+
+                   </script>
+
+         </head>
+
+         <body>
+
+                   <div id="book">
+
+                            <div>5</div>
+
+                            <div>4</div>
+
+                            <div>3</div>
+
+                            <div>2</div>
+
+                            <div>1</div>
+
+                   </div>
+
+         </body>
+
+</html>

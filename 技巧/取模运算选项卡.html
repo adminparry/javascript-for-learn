@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>regexp</title>
+    <style>
+	.tab{
+		width: 800px;height: 500px;
+		overflow: hidden;position: relative;
+		border: 1px solid #aaa;
+	}
+	.tab .prev,.tab .next{
+		width: 16px;height: 16px;
+		position: absolute;
+		top: 50%;
+		margin-top: -8px;
+		text-align: center;
+		line-height: 16px;
+		cursor: pointer;
+	}
+	
+	.tab .prev{
+		background: red;
+		left: 0;
+	}
+	.tab .next{
+		background: green;
+		right: 0;
+	}
+	.tab .view{
+		height: 100%;
+		width: 3200px;
+	}
+	.tab .view a{
+		display: block;
+		height: 100%;
+		float: left;
+		width: 800px;
+		cursor: auto;
+	}
+	.tab .view a:nth-child(1){
+		background: blue;
+	}
+	.tab .view a:nth-child(2){
+		background: yellow;
+	}
+	.tab .view a:nth-child(3){
+		background: orange;
+	}
+	.tab .view a:nth-child(4){
+		background: pink;
+	}
+	.tab .radio{
+		display: inline-block;
+		position: relative;
+		top: -10%;
+		bottom: 0;
+		text-align: center;
+
+	}
+	
+	.tab .radio .fl{
+		float: left;
+		margin: 2px;
+		border-radius: 50%;
+		width: 6px;height: 6px;
+		display: inline-block;
+		padding: 6px;
+		width: 6px;height: 6px;
+		background: white;
+
+	}
+	.tab .radio .cur{
+		background: black;
+	}
+    </style>
+</head>
+<body>
+    <!-- div.tab>div.prev+div.next+(div.view>a[href=#].fl*4>img)+(div.radio>a[href=#].fl*4>span.ib) -->
+    <div class="tab">
+    	<div class="prev"><</div>
+    	<div class="next">></div>
+    	<div class="view">
+    		<a href="#" class="fl cur"><img src="" alt=""></a>
+    		<a href="#" class="fl"><img src="" alt=""></a>
+    		<a href="#" class="fl"><img src="" alt=""></a>
+    		<a href="#" class="fl"><img src="" alt=""></a>
+    	</div>
+    	<div class="radio">
+    		<a href="#" class="fl cur"><span class="ib"></span></a>
+    		<a href="#" class="fl"><span class="ib"></span></a>
+    		<a href="#" class="fl"><span class="ib"></span></a>
+    		<a href="#" class="fl"><span class="ib"></span></a>
+    	</div>
+    </div>
+    
+</body>
+<script>
+    //通用的正则匹配原则
+var regC={
+    mobile:/^(((13[0-9]{1})|(14[0-9]{1})|(15[0-9]{1})|(18[0-9]{1}))+\d{8})$/,
+    password:/^[A-Za-z0-9_\u4e00-\u9fa5-`=\\\[\];',.\/~!@#$%^&*()_+|{}:"<>?]{6,20}$/,
+    mail: /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/,
+    
+}
+
+    
+</script>
+</html>

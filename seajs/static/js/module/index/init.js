@@ -1,0 +1,1 @@
+define("module/index/init",[],function(){console.log('init')});

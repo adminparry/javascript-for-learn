@@ -1,0 +1,41 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Untitled Document</title>
+<style>
+	body{
+		height: 2000px;width: 100%;
+	}
+</style>
+</head>
+
+<body>
+</body>
+<script>
+	
+    function loadMore(delay,fn){  
+        var canRun=true;  
+        return function(){  
+            if(!canRun){return;}  
+            canRun=false;  
+            setTimeout(function(){  
+                
+                var docHeight = document.body.offsetHeight;  
+                var winHeight = window.innerHeight;  
+                var scrollDistance= document.body.scrollTop ||  document.documentElement.scrollTop;  
+
+               
+                if( docHeight - (winHeight+scrollDistance) <=100 ){  
+                    fn && fn();
+                }  
+                canRun=true;  
+            },delay);  
+        }  
+    }  
+
+    window.onscroll = loadMore(600,function(){
+    	document.write('加载中...')
+    });
+</script>
+</html>

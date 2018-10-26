@@ -1,0 +1,52 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>mergeSort</title>
+<style>
+	span{
+		color: green;
+	}
+</style>
+</head>
+
+<body>
+	<img src="image/u=3524329892,1033711308&fm=58.jpeg" alt="">
+	<h1>排序数组<span id="array"></span></h1>
+	<h1>结果<span id="result"></span></h1>
+	<h2>复杂度<span>O(n log n)</span></h2>
+</body>
+<script>
+	function mergeSort(arr){
+		var len = arr.length;
+		if(len < 2){
+			return arr;
+		}
+		var middle = len >>> 1,
+			left = arr.slice(0,middle),
+			right = arr.slice(middle);
+
+		return merge(mergeSort(left),mergeSort(right))
+
+	}
+	function merge(left,right){
+		var ret = [];
+		while(left.length > 0 && right.length > 0){
+			if(left[0] <= right[0]){
+				ret.push(left.shift())
+			}else{
+				ret.push(right.shift())
+			}
+		}
+		return ret.concat(left,right);
+	}
+
+
+	var arr = [1324,undefined,5345,34,634,6,345,5,34,534,6,457,6];
+
+	var result = mergeSort(arr);
+
+	document.querySelector('#array').innerHTML = arr;
+	document.querySelector('#result').innerHTML = result;
+</script>
+</html>
