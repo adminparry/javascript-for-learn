@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>limit one</title>
+</head>
+<body>
+	<h2 id="list"></h2>
+	<h4><span id="max"></span></h4>
+	<h4><span id="min"></span></h4>
+</body>
+<script>
+	const arrayMax = arr => Math.max(...arr);
+	const arrayMin = arr => Math.min(...arr);
+
+	var arr = [13,5,3,2,3,4,3,43,23,2,3,45,3,4];
+
+
+	document.querySelector('#list').innerHTML = arr;
+	document.querySelector('#max').innerHTML = arrayMax(arr);
+	document.querySelector('#min').innerHTML = arrayMin(arr);
+
+	// 注意数组中出现断裂返回结果会为NaN
+</script>
+</html>

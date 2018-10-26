@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>focus</title>
+	<style>
+		.event{
+			width:200px;height:200px;background:red;
+			text-align: center;
+			font-size: 32px;
+			line-height: 200px;
+			user-select:none;
+		}
+	</style>
+</head>
+<body>
+	
+	<input type="text"  id="focus" class="event" value="focus">
+</body>
+<script>
+	document.getElementById('focus').onfocus = function(){
+		
+		console.log('once')
+	}
+</script>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>regexp</title>
+</head>
+<body>
+    <h1 id="num">34655645.3524</h1>
+    <h1 id="ret"></h1>
+</body>
+<script>
+//数字用分割符号隔开
+//返回字符串
+function thounds(num){   
+
+		if(typeof(num) == "string" && arguments.length==1){
+
+			var binery=num.split(".");
+
+			var re=/(-?\d+)(\d{3})/    
+			while(re.test(binery[0])){    
+				binery[0]=binery[0].replace(re,"$1,$2")    
+			}    
+			    
+			return  binery.join('.')  
+		}else{
+			return "invaild"
+		} 
+	} 
+
+
+var input = document.querySelector('#num');
+var output = document.querySelector('#ret');
+
+output.textContent = thounds(input.textContent);
+
+</script>
+</html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>dbclick</title>
+	<style>
+		.event{
+			width:200px;height:200px;background:red;
+			text-align: center;
+			font-size: 32px;
+			line-height: 200px;
+			user-select:none;
+		}
+	</style>
+</head>
+<body>
+	<div id="dblclick" class="event">
+		dblclick
+	</div>
+</body>
+<script>
+	document.getElementById('dblclick').ondblclick = function(){
+		alert(this.id)
+	}
+
+</script>
+</html>

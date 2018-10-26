@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>无缝滚动</title>
+    <style>
+      *{margin: 0;padding: 0;list-style: none;}
+      .banner{
+        margin: auto;
+        overflow: hidden;
+        
+         width: 100px;
+      }
+      li{
+        float: left;width: 100px;
+        background: red;
+        height: 200px;
+        color: white;
+        text-align: center;line-height: 200px;
+      }
+      .photo{
+        width: 900px;
+        overflow: auto;
+      }
+    </style>
+</head>
+<body>
+    <div class="banner">
+      <ul class="photo" id="photo"> 
+       
+        <li><img src="imgs/5.jpg" alt="">1</li> 
+        <li><img src="imgs/1.jpg" alt="">2</li> 
+        <li><img src="imgs/2.jpg" alt="">3</li> 
+        <li><img src="imgs/3.jpg" alt="">4</li> 
+        <li><img src="imgs/4.jpg" alt="">5</li> 
+        <li><img src="imgs/5.jpg" alt="">6</li> 
+        <li><img src="imgs/1.jpg" alt="">7</li> 
+      
+        </ul> 
+        <div class="ctllar" align="center">
+           <a href="javascript:;" id="prev" class="arrow">&lt;</a> 
+          <a href="javascript:;" id="next" class="arrow">&gt;</a>
+        </div>
+        
+    </div>
+</body>
+<script>
+var photo = document.querySelector('#photo'), 
+nextItem = document.querySelector('#next') ,
+prevItem = document.querySelector('#prev') 
+index = 1 ;
+var orginLength = photo.children.length + 2;
+
+var bannerWidth = document.querySelector('.banner').offsetWidth
+
+Array.prototype.slice.call(document.querySelectorAll('li')).forEach((item,index)=>{
+
+  var arr = [Math.random()*100,Math.random()*100,Math.random()*100]
+  item.style.background = `rgba(${arr.join(',')})`;
+  // item.style.width = bannerWidth + 'px';
+})
+
+
+
+
+// 补间
+void function(){
+  // 形成圆环结构并初始化第一位元素
+  var first = photo.firstElementChild.cloneNode(true);
+  var last = photo.lastElementChild.cloneNode(true);
+  photo.appendChild(first);
+  photo.insertBefore(last,photo.firstElementChild);
+
+  translate(photo, 'translate(' + (-bannerWidth) + 'px, 0)' , 0);
+}();
+
+
+
+
+
+
+
+
+function translate(dom, type, time) { 
+dom.style.transform = type 
+dom.style.transitionDuration = time + 's' 
+
+} 
+function diration(dir){
+  photo.dir = dir;
+}
+diration('ltr');
+var animated = function (offset) { 
+  
+  index = (index%orginLength +  orginLength)%orginLength;
+  go = 'translate(' + offset*index + 'px, 0)' 
+
+
+translate(photo, go, 0.5) 
+} 
+var next = function () { 
+index++ ;
+console.log(index)
+if(index == orginLength - 1 ){
+  nextItem.onclick = null;
+  photo.addEventListener("transitionend", function(){
+    translate(photo, 'translate(' + (-bannerWidth*1) + 'px, 0)' , 0);
+    photo.removeEventListener("transitionend",arguments.callee);
+    index+=2;
+    nextItem.onclick = next; 
+  });
+
+}
+
+animated(-bannerWidth) ;
+
+
+} 
+var prev = function () { 
+index-- ;
+console.log(index)
+if(index == 0){
+  prevItem.onclick = null;
+  photo.addEventListener("transitionend", function(){
+    translate(photo, 'translate(' + (-bannerWidth*(orginLength-2)) + 'px, 0)' , 0);
+    photo.removeEventListener("transitionend",arguments.callee);
+    index-=2;
+    prevItem.onclick = prev; 
+  });
+  
+  
+}
+
+  animated(-bannerWidth)
+ 
+} 
+nextItem.onclick = next; 
+prevItem.onclick = prev; 
+</script>
+</html>

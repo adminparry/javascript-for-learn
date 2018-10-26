@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>promise</title>
+</head>
+<body>
+	
+</body>
+<script>
+	var bobi = Math.random() < .5;
+	new Promise(function(resolve,reject){
+		
+
+		setTimeout(function(){
+			if(bobi){
+				resolve('success');
+			}else{
+				reject('fail')
+			}
+		},1000)
+	}).then(function(ret){
+		console.log(ret);
+	},function(err){
+		console.log(err);
+		return 99
+	}).then(function(res){
+		console.log(res)
+	})
+</script>
+<script>
+// https://www.cnblogs.com/huansky/p/6064402.html
+	function MyPromise(callback){
+		var self = this;
+		this.status = 'pending';
+		this.data;
+		this.onResolvedCallback = [];
+		this.onRecjectedCallback = [];
+		this.callback = callback;
+
+		this.callback(resolve,reject);
+		this.then = function(resolve,reject){
+			switch(this.status){
+				case 'pending':
+				this.onResolvedCallback.push(resolve);
+				this.onRecjectedCallback.push(reject);
+				return this;
+				break;
+				case 'fulfilled':
+				resolve.call(this,resolve);
+				return this;
+				break;
+				case 'rejected':
+				reject.call(this,reject);
+				return this;
+				break;
+			}
+		}
+		function resolve(value){
+			// debugger;
+			if(self.status == 'pending'){
+				self.status = 'fulfilled';
+				self.data = value;
+				self.onResolvedCallback.forEach((item,index)=>{
+					item.call(item,value);
+				})
+			}
+		}
+		function reject(error){
+			// debugger;
+			if(self.status == 'pending'){
+				self.status = 'rejected';
+				self.onRecjectedCallback.forEach((item)=>{
+					item.call(item,error);
+				})
+			}
+		}
+		
+	}
+	MyPromise.prototype.all = function(promises){
+		return new MyPromise(function(resolve,reject){
+			 var i = 0,
+              result = [],
+              len = promises.length,
+            　 count = len；
+
+	　　　　　　// 每一个 promise 执行成功后，就会调用一次 resolve 函数
+	          function resolver(index) {
+	          　　return function(value) {
+	            　　　resolveAll(index, value);
+	          　　};
+	        　}
+
+	        function rejecter(reason){
+	            reject(reason);
+	        }
+
+	        function resolveAll(index,value){
+	　　　　　　　// 存储每一个promise的参数
+	            result[index] = value;
+	　　　　　　　// 等于0 表明所有的promise 都已经运行完成，执行resolve函数
+	            if( --count == 0){
+	                resolve(result)
+	            }
+	        }
+　　　　　　　　// 依次循环执行每个promise
+	          for (; i < len; i++) {
+	　　　　　　　　 // 若有一个失败，就执行rejecter函数 
+	              promises[i].then(resolver(i),rejecter);
+	          }
+		})
+	}
+
+	new MyPromise(function(resolve,reject){
+		
+		setTimeout(function(){
+			if(bobi){
+				resolve('success');
+			}else{
+				reject('fail')
+			}
+		},1000)
+	}).then(function(ret){
+		console.log(ret);
+	},function(err){
+		console.log(err);
+		return 99
+	})
+</script>
+
+</html>

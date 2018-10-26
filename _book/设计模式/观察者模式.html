@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	
+</body>
+<script>
+	// String to Object flags format cache
+	var flagsCache = {};
+
+	// Convert String-formatted flags into Object-formatted ones and store in cache
+	function createFlags( flags ) {
+		var object = flagsCache[ flags ] = {},
+			i, length;
+		flags = flags.split( /\s+/ );
+		for ( i = 0, length = flags.length; i < length; i++ ) {
+			object[ flags[i] ] = true;
+		}
+		return object;
+	}
+
+
+	function Callbacks(flags){
+
+		flags = flags ? ( flagsCache[ flags ] || createFlags( flags ) ) : {};
+
+		var list = [];
+		var stack = [];
+		var memory,fired,firing,firingStart,firingLength,firingIndex;
+		// add one or several callbacks to the list 
+
+		function add(args){
+			var i,length,elem,type,actual;
+			for (var i = 0; i < args.length; i++) {
+				elem = args[ i ];
+				type = Object.prototype.toString.call(elem);
+				if(/Array/.test(type)){
+					add(elem);
+				}else if(/Function/.test(type)){
+					list.push(elem);
+				}
+			};
+		}
+
+		var self = {
+			add:function(){
+				if(list){
+					var length = list.length;
+					add(arguments);
+					if(firing){
+						firingLength = list.length;
+
+					}else if(memory && memory !== true){
+						firingStart = length;
+						fire(memory[0],memory[1]);
+					}
+				}
+				return this;
+			},
+			remove:function(){
+				if(list){
+					var args = arguments;
+					var argIndex = 0;
+					var argLength = args.length;
+					for (; argIndex < argLength; argIndex++) {
+						if(firing){
+							if(i <= firingLength){
+								firingLength--;
+								if(i <=  firingIndex){
+									firingIndex--;
+
+								}
+							}
+						}
+						list.splice(i--,1);
+						if(flags.unique){
+							break;
+						}
+					};
+				}
+				return this;
+			},
+			fireWidth:function(){
+				if(stack){
+					if(firing){
+						if(!flags.once){
+							stack.push([context,args]);
+
+						}
+					}else if(){
+
+					}
+				}
+			},
+			fire:function(){
+				self.fireWith(this,arguments);
+				return this;
+			}
+		}
+
+		return self;
+
+	}
+</script>
+<script>
+	function fn1( value ) {
+	  console.log( value );
+	}
+	 
+	function fn2( value ) {
+	  console.log( "fn2 says: " + value );
+	  return false;
+	}
+	var callbacks = new Callbacks();
+	callbacks.add( fn1 );
+	 
+	// Outputs: foo!
+	callbacks.fire( "foo!" );
+	 
+	callbacks.add( fn2 );
+	 
+	// Outputs: bar!, fn2 says: bar!
+	callbacks.fire( "bar!" );
+</script>
+</html>

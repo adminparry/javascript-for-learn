@@ -1,0 +1,90 @@
+ <!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>SVGdom绘制圆形</title>
+  <style>
+      #circle{
+          width: 100px;
+          height: 100px;
+          border: 1px solid red;
+      }
+  </style>
+  
+</head>
+<body>
+
+    <h4>SVGdom绘制圆形</h4>
+ <svg width="400" height="400" style="background:#ccc"><!-- Pie chart sample -->
+ 	<path d="M200,200 L200,20 A180,180 0 0,1 200,560 z"	style="fill:#ff0000;		fill-opacity: 1;		stroke:black;		stroke-width: 1"/>
+ 	<!-- <path d="M200,200 L377,231 A180,180 0 0,1 138,369 z"	style="fill:#00ff00;		fill-opacity: 1;		stroke:black;		stroke-width: 1"/>
+ 	<path d="M200,200 L138,369 A180,180 0 0,1 20,194 z"	style="fill:#0000ff;		fill-opacity: 1;		stroke:black;		stroke-width: 1"/>
+ 	<path d="M200,200 L20,194 A180,180 0 0,1 75,71 z"	style="fill:#ff00ff;		fill-opacity: 1;		stroke:black;		stroke-width: 1"/>
+ 	<path d="M200,200 L75,71 A180,180 0 0,1 200,20 z"	style="fill:#ffff00;		fill-opacity: 1;		stroke:black;		stroke-width: 1"/> -->
+ </svg>
+ <svg width="325px" height="325px" style="background:#ccc;">
+  	<path d="M80 80
+           A 45 45, 0, 0, 0, 125 125
+           L 125 80 Z" fill="green"/>
+	<path d="M">
+</svg>
+</body>
+<script>
+
+	var svg=document.getElementById('svg').getElementsByTagName('path')[0];
+	var timer=null;
+
+
+	function degr(arc){
+		var Radian=arc*Math.PI/180;
+
+		return Radian
+	}
+
+	
+	function oragin(o1,o2, x1,y1, deg1){
+		var r=Math.sqrt(Math.abs((o1-x1)*(o1-x1)-(o2-y1)*(o2-y1)));
+			var deg=0;
+			var x,y;
+
+				
+
+		
+
+		clearInterval(timer)
+			timer=setInterval(function(){
+				deg++;
+				console.log( 0<=deg%360 &&  deg%360<=90)
+				if( 0<=deg%360 && deg%360<=90){
+					x=(Math.sin(degr(deg))*r+o1)
+					y= (o2-Math.cos(degr(deg))*r)
+					console.log(90)
+				}else if(90<=deg%360 && deg%360<=180){
+					x1=o1+r
+					x= (Math.sin(degr(180-deg))*r+o1)
+					y= (Math.sin(degr(180-deg))*r+o2)
+					console.log(180)
+				}else if(180<=deg%360 && deg%360<=270){
+					y1=o2+r
+					x= (o1-Math.sin(degr(deg-180))*r)
+					y= (o2+Math.sin(degr(deg-180))*r)
+					console.log(270)
+				}else{
+					x1=o1-r
+					x= (o1-Math.sin(degr(360-deg))*r)
+					y= (o2-Math.sin(degr(360-deg))*r)
+				}
+
+			
+				svg.setAttribute('d', 'M'+o1+','+o2+' L'+x1+','+y1+' A180,180 0 0,1 '+x+','+y+' z');
+
+				(deg==deg1) && (clearInterval(timer))
+				console.log( 'M'+o1+','+o2+' L'+x1+','+y1+' A180,180 0 0,1 '+x+','+y+' z')
+			},30)
+
+			// svg.setAttribute('d', 'M'+o1+','+o2+' L'+x1+','+y1+' A180,180 0 0,1 '+(Math.sin(degr(deg))*r+o1)+','+(o2-Math.cos(degr(deg))*r)+' z')
+			//console.log(Math.sin(degr(deg))*r+o1)
+	}
+	oragin(200,200, 200,20, 360)
+</script>
+</html>
