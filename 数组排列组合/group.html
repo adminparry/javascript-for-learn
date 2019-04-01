@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>group</title>
+</head>
+<body>
+	<div>
+		
+		原始数据：<div id="start"></div>
+	</div>
+	<div>
+		个数：<input id="count" type="text"><button id="btn">生成</button>
+	</div>
+	<ul id="list">
+		
+	</ul>	
+</body>
+<script>
+	var arr = [2,3,65,7,8,5,43,38,52,6];
+
+
+	document.getElementById('start').innerText = arr;
+	var count = document.getElementById('count');
+	var btn = document.getElementById('btn');
+	var list = document.getElementById('list');
+
+	btn.onclick = function(){
+		list.innerHTML = null;
+		
+		var coll = group(arr, count.value);
+
+		for (var i = 0; i < coll.length; i++) {
+			var li = document.createElement('li');
+			li.innerText = coll[i];
+
+			list.appendChild(li);
+		}
+		
+	}
+
+
+	function group(arr, count){
+		var ret = [];
+
+		(function f(t, a, c){
+
+			if(c == 0){
+				return ret.push(t);
+			}
+
+			for (var i = 0; i < a.length - c; i++) {
+				f(t.concat(a[i]), a.slice(i + 1), c - 1)
+			}
+
+		})([],arr,count)
+		
+		return ret;
+	}
+
+</script>
+</html>
