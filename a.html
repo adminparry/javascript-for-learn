@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<a href="/record/TCSS_0001_445ca30050720113_18321097787_15821742379_20190402142520.mp3" download="audio">下载</a>
+	<a href="http://121.31.255.235:12301/record/TCSS_0001_445ca30050720113_18321097787_15821742379_20190402142520.mp3" download="audio">跨域下载</a>
+
+</body>
+<script>
+	// a标签有个额外的属性download 对于下载文件有效的对文件进行变更名字 而对于跨域类型的文件这个属性不再有效
+
+	// 在这种情况下没有比配个资源代理更方便的事情了
+	// location /record {
+ //        proxy_pass http://121.31.255.235:12301;
+
+ //    } 
+	
+</script>
+</html>
